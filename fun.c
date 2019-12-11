@@ -1,9 +1,14 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#
 #include"fun.h"
 
 #define MAX 30
+
+/*************
+***变量定义****
+**************/
 
 typedef struct {
 	int math = 0;
@@ -23,6 +28,25 @@ typedef struct node {
 	struct node* next;
 }Node;
 
+/*************
+***函数声明****
+**************/
+void init_node(void)；
+Node* search(Node* list, char* id)；
+Node* add_student(Node* list, char id)；
+Student write(void)；
+Node* delet(Node* list, char id)；
+Node* update(Node* list, char id)；
+void welcome(void)；
+void print_one(Node* list)；
+void jump(void)；
+void modeset(int w, int h)；
+
+/*************
+****函数体****
+**************/
+
+//初始化函数
 void init_node(void)
 {
 	Node* head;
@@ -30,18 +54,23 @@ void init_node(void)
 	//后续文件读写储存功能，方便转移与多次使用。
 }
 
+//链表搜索
 Node* search(Node* list, char* id)
 {
 	for (; list && !strcmp(list->data.id, id); list = list->next);
 	return list;
 }
 
+
+//节点添加
 Node* add_student(Node* list, char id)
 {
 
 }
 
-Student read(void)
+
+//修改信息
+Student write(void)
 {
 	Student data;
 	int n1, n2, n3;
@@ -90,21 +119,53 @@ Student read(void)
 	}
 }
 
+
+//删除链表节点
 Node* delet(Node* list, char id)
 {
 
 }
 
+//更新信息
 Node* update(Node* list, char id)
 {
 
 }
 
+//菜单栏
 void welcome(void)
 {
-
+modeset(40, 30);
+	SetConsoleTitle("UESTC_1605班成绩管理系统");
+	for (int i = 0; i < 5; i++)
+		printf(" ");
+	for (int i = 0; i < 30; i++)
+		printf("*");
+	for (int i = 0; i < 5; i++)
+		printf(" ");
+	printf("\n     *        电子科技大学        *     \n     *    ***    1605班    ***    *     \n     *        成绩管理系统        *     \n");//5+8，5+7，5+8个空格
+	for (int i = 0; i < 5; i++)
+		printf(" ");
+	for (int i = 0; i < 30; i++)
+		printf("*");
+	for (int i = 0; i < 5; i++)
+		printf(" ");
+	//TODO 登录验证组件
+	printf("\n\n\n");
+	printf("                  MENU                  \n\n");
+	printf("          0——>查看全班成绩\n");
+	printf("          1——>查看学生成绩\n");
+	printf("          2——>新增学生成绩\n");
+	printf("          3——>修改学生成绩\n");
+	printf("          4——>删除学生成绩\n");
+	printf("          5——>成绩数据分析\n");
+	printf("          6——>退出 并 保存\n\n");
+	printf("             输入指令编号：\n");
+	printf("                  ");
+	//scanf_s("%d", choice); 记得下一个函数调用choice.
 }
 
+//打印成绩
 void print_one(Node* list)
 {
 	int* n = NULL;
@@ -122,6 +183,7 @@ void print_one(Node* list)
 				list->data.score[i].math, list->data.score[i].english);
 }
 
+//跳转界面
 void jump(void)
 {
 	char temp;
@@ -138,3 +200,16 @@ begain:printf("请输入h返回主页面\n输入q退出");
 		break;
 	}
 }
+
+//窗口大小控制
+void modeset(int w, int h)
+{
+	//	此函数设置窗口大小为 w*h
+	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD size = { w, h };
+	SetConsoleScreenBufferSize(hOut, size);
+	SMALL_RECT rc = { 1,1, w, h };
+	SetConsoleWindowInfo(hOut, 1, &rc);
+	return;
+}
+
