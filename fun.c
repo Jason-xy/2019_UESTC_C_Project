@@ -32,6 +32,7 @@ typedef struct node {
 ***函数声明****
 **************/
 void init_node(void)；
+void laod(void);
 Node* search(Node* list, char* id)；
 Node* add_student(Node* list, char id)；
 Student write(void)；
@@ -40,11 +41,18 @@ Node* update(Node* list, char id)；
 void welcome(void)；
 void print_one(Node* list)；
 void jump(void)；
+void save(void);
 void modeset(int w, int h)；
 
 /*************
-****函数体****
+****函数体*****
 **************/
+
+
+void laod(void)
+{
+	
+}
 
 //初始化函数
 void init_node(void)
@@ -199,6 +207,11 @@ begain:printf("请输入h返回主页面\n输入q退出");
 		goto begain;
 		break;
 	}
+}
+
+void save(void)
+{
+	
 }
 
 //窗口大小控制
