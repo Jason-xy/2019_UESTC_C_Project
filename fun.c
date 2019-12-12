@@ -13,7 +13,7 @@
 typedef struct {
 	int math = 0;
 	int english = 0;
-	int chinese = 0;
+	int program = 0;
 }Score;
 
 
@@ -87,7 +87,7 @@ Student write(void)
 	switch (n1)
 	{
 	case 0:
-		printf("0-修改姓名\n1-修改学号\n2-修改语文成绩\n\
+		printf("0-修改姓名\n1-修改学号\n2-修改C语言成绩\n\
 3-修改数学成绩\n4-修改英语成绩\n");
 		scanf_s("%d", &n2);
 		printf("修改第几次成绩：\n");
@@ -101,7 +101,7 @@ Student write(void)
 			fgets(data.id, MAX, stdin);
 			break;
 		case 2:
-			scanf_s("%d", &data.score->chinese);
+			scanf_s("%d", &data.score->program);
 			break;
 		case 3:
 			scanf_s("%d", &data.score->math);
@@ -119,8 +119,8 @@ Student write(void)
 		scanf_s("%s", &data.name);
 		printf("\n请输入学号：");
 		scanf_s("%s", &data.id);
-		printf("\n请输入分数(语文-数学-英语)：");
-		scanf_s("%d-%d-%d", &data.score->chinese, &data.score->math, &data.score->english);
+		printf("\n请输入分数(C语言-数学-英语)：");
+		scanf_s("%d-%d-%d", &data.score->program, &data.score->math, &data.score->english);
 		break;
 	default:
 		break;
@@ -181,13 +181,13 @@ void print_one(Node* list)
 	printf("学号：%s", list->data.id);
 	printf("查看第几次考试(查看全部成绩则忽略)：");
 	scanf_s("%d", n);
-	printf("成绩：\n语文\t数学\t英语\t\n");
+	printf("成绩：\nC语言\t数学\t英语\t\n");
 	if (n)
-		printf("%d\t%d\t%d\t\n", list->data.score[*n - 1].chinese, \
+		printf("%d\t%d\t%d\t\n", list->data.score[*n - 1].program, \
 			list->data.score[*n - 1].math, list->data.score[*n - 1].english);
 	else
 		for (int i = 0; i < 30; i++)
-			printf("%d\t%d\t%d\t\n", list->data.score[i].chinese, \
+			printf("%d\t%d\t%d\t\n", list->data.score[i].program, \
 				list->data.score[i].math, list->data.score[i].english);
 }
 
