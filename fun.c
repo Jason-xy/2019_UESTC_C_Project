@@ -13,7 +13,7 @@
 typedef struct {
 	int math = 0;
 	int english = 0;
-	int program = 0;
+	int programming = 0;
 }Score;
 
 
@@ -101,7 +101,7 @@ Student write(void)
 			fgets(data.id, MAX, stdin);
 			break;
 		case 2:
-			scanf_s("%d", &data.score->program);
+			scanf_s("%d", &data.score->programming);
 			break;
 		case 3:
 			scanf_s("%d", &data.score->math);
@@ -120,7 +120,7 @@ Student write(void)
 		printf("\n请输入学号：");
 		scanf_s("%s", &data.id);
 		printf("\n请输入分数(C语言-数学-英语)：");
-		scanf_s("%d-%d-%d", &data.score->program, &data.score->math, &data.score->english);
+		scanf_s("%d-%d-%d", &data.score->programming, &data.score->math, &data.score->english);
 		break;
 	default:
 		break;
