@@ -225,4 +225,72 @@ void modeset(int w, int h)
 	SetConsoleWindowInfo(hOut, 1, &rc);
 	return;
 }
+void put_in_order(Node *phead) {          //排序，不输出
+	int code_order,code_data;
+	Student temp;
+	printf("由高到低排序输入0，由低到高排序输入1\n");
+	scanf("%d",&code_order);
+	printf("按数学成绩排序输入0，按英语成绩排序输入1，按c语言成绩排序输入2，按总成绩排名输入3");
+	printf("%d", &code_data);
+		switch (code_order) {
+		case 0:
+			switch (code_data) {
+			case 0:
+				for (; phead->next; phead = phead->next) {
+					if ((phead->data.score.math) < (phead->next->data.score.math)) {
+						temp = (phead->next->data);//交换结构
+						(phead->next->data) = phead->data;
+						phead->data = temp;
+					}
+				}break;
+			case 1:
+				for (; phead->next; phead = phead->next) {
+				if ((phead->data.score.english) < (phead->next->data.score.english)) {
+					temp = (phead->next->data);//交换结构
+					(phead->next->data) = phead->data;
+					phead->data = temp;
+				}
+			}break;
+			case 2:
+				for (; phead->next; phead = phead->next) {
+					if ((phead->data.score.programming) < (phead->next->data.score.programming)) {
+						temp = (phead->next->data);//交换结构
+						(phead->next->data) = phead->data;
+						phead->data = temp;
+					}
+				}
+				break;
+			default:printf("undefined code");
+			}break;
+		case 1:
+			switch (code_data) {
+			case 0:
+				for (; phead->next; phead = phead->next) {
+					if ((phead->data.score.math)>(phead->next->data.score.math)) {
+						temp = (phead->next->data);//交换结构
+						(phead->next->data) = phead->data;
+						phead->data = temp;
+					}
+				}break;
+			case 1:
+				for (; phead->next; phead = phead->next) {
+					if ((phead->data.score.english) > (phead->next->data.score.english)) {
+						temp = (phead->next->data);//交换结构
+						(phead->next->data) = phead->data;
+						phead->data = temp;
+					}
+				}break;
+			case 2:
+				for (; phead; phead = phead->next) {
+					if ((phead->data.score.programming) > (phead->next->data.score.programming)) {
+						temp = (phead->next->data);//交换结构
+						(phead->next->data) = phead->data;
+						phead->data = temp;
+					}
+				}
+				break;
+			default:printf("undefined code");
+			}break;
+		default:printf("undefined code");
+	}
 
