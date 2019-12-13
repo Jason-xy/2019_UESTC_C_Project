@@ -129,8 +129,20 @@ Student write(void)
 
 
 //删除链表节点
-Node* delet(Node* list, char id)
+void  delet(Node** list, char *id)				//void函数可以减少赋值一步，避免出错；
 {
+	Node* p = (*list);
+	Node* q; //跟随指针
+	if (!strcmp(p->data.id, *id)) {		//第一个数据就是所找数据时的特殊情况
+		(*list) = (*list)->next;   //删除第一个结点
+	}
+	else {
+		for (; p && strcmp(p->data.id, *id); q = p, p = p->next);
+		if (!p)
+			printf("unknown id"); else {
+			q->next = p->next;    //将跟随指针跳过所删除的结点，指向下一个
+		}
+	}
 
 }
 
