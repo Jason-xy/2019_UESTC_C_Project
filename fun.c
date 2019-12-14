@@ -71,9 +71,15 @@ Node* search(Node* list, char* id)
 
 
 //节点添加
-Node* add_student(Node* list, char id)
+Node* add_student(Node* list)//在最后一个添加一个成员,list为头结点
 {
-
+	for (; list; list = list->next);
+	(list->next) = (Node*)malloc(sizeof(Node));
+	Node* new_member = list->next;
+	printf("请输入新成员的id\n");
+	scanf("%s", new_member->data.id);
+	printf("请输入新成员的姓名\n");
+	scanf("%s", new_member->data.name);
 }
 
 
