@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#
+#include<windows.h>
 #include"fun.h"
 
 #define MAX 30
@@ -28,6 +28,7 @@ typedef struct node {
 	struct node* next;
 }Node;
 
+Node* head;
 /*************
 ***函数声明****
 **************/
@@ -54,18 +55,19 @@ void load(void)
 {
 	int i=0;
 	Node* list;
-	FIEL* std.txt;
-	txt=FIEL;
+	FIEL* txt=std.txt;
 	fopen(txt,"r+");
-	for(list=head,i=0;\
-	fscanf_s(txt,"%s",list->data.name,MAX)!=EOF;i++,\
+	for(list=head;\
+	fscanf_s(txt,"%s",list->data.name,MAX)!=EOF;\
 	(list->next)=(Node*)malloc(sizeof(Node)),list=list->next)
 	{
 	fscanf_s(txt,"%s",list->data.name,MAX);
 	fscanf_s(txt,"%s",list->data.id,MAX);
-	fscanf_s(txt,"%d",&(list->data.score[i].math));
-	fscanf_s(txt,"%d",&(list->data.score[i].english));
-	fscanf_s(txt,"%d",&(list->data.score[i].programming));
+		for(i=0;i<30;i++)
+		{
+		fscanf_s(txt,"%d-%d-%d",&(list->data.score[i].math),\
+		&(list->data.score[i].english),&(list->data.score[i].programming));
+		}
 	}
 	fclose(txt);
 }
@@ -73,7 +75,6 @@ void load(void)
 //初始化函数
 void init_node(void)
 {
-	Node* head;
 	head = (Node*)malloc(sizeof(Node));
 	load();
 }
@@ -87,15 +88,18 @@ Node* search(Node* list, char* id)
 
 
 //节点添加
-Node* add_student(Node* list)//在最后一个添加一个成员,list为头结点
+void add_student(Node* list)//在最后一个添加一个成员,list为头结点
 {
-	for (; list; list = list->next);
+	for (list=head; list; list = list->next);
 	(list->next) = (Node*)malloc(sizeof(Node));
 	Node* new_member = list->next;
+	new_member=write();
+	/*
 	printf("请输入新成员的id\n");
 	scanf_s("%s", new_member->data.id);
 	printf("请输入新成员的姓名\n");
 	scanf_s("%s", new_member->data.name);
+	*/
 }
 
 
@@ -138,9 +142,9 @@ Student write(void)
 		break;
 	case 1:
 		printf("请输入姓名：");
-		scanf_s("%s", data.name);
+		fgets(data.name,MAX-1,stdin);
 		printf("\n请输入学号：");
-		scanf_s("%s", data.id);
+		fgets(data.id,MAX-1,stdin);
 		printf("",times);
 		scanf_s("%d",&times);
 		printf("\n请输入分数(C语言-数学-英语)：");
@@ -249,7 +253,20 @@ begain:printf("请输入h返回主页面\n输入q退出");
 
 void save(void)
 {
-	
+	Node* list
+	FILE* txt=std.txt;
+	fopen(txt,"w+");
+	for(list=head;list;list=list->next)
+	{
+		fprintf(txt,"%s",list->data.name);
+		fprintf(txt,"%s",list->data.id);
+		for(int i=0,i<30,i++)
+		{
+		fprintf(txt,"%s-%s-%s\n",list->data.score.programming,\
+		list->data.score.math,list->data.score.english);
+		}
+	}
+	fclose(txt);
 }
 
 //窗口大小控制
@@ -263,7 +280,8 @@ void modeset(int w, int h)
 	SetConsoleWindowInfo(hOut, 1, &rc);
 	return;
 }
-void put_in_order(Node *phead) {          //排序，不输出
+void put_in_order(Node *phead) 
+{          //排序，不输出
 	int code_order,code_data;
 	Student temp;
 	printf("由高到低排序输入0，由低到高排序输入1\n");
