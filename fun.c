@@ -36,10 +36,11 @@ void load(void);
 Node* search(Node* list, char* id)；
 Node* add_student(Node* list, char id)；
 Student write(void)；
-Node* delet(Node* list, char id)；
-Node* update(Node* list, char id)；
+void delet(Node** list, char* id)；
+void update(Node* list, char id)；
 void welcome(void)；
 void print_one(Node* list)；
+void put_in_order(Node *phead);
 void jump(void)；
 void save(void);
 void modeset(int w, int h)；
@@ -74,13 +75,13 @@ void init_node(void)
 {
 	Node* head;
 	head = (Node*)malloc(sizeof(Node));
-	//后续文件读写储存功能，方便转移与多次使用。
+	load();
 }
 
 //链表搜索
 Node* search(Node* list, char* id)
 {
-	for (; list && !strcmp(list->data.id, id); list = list->next);
+	for (; list && !strcmp(list->data.id, id); list = list->next);//ID search
 	return list;
 }
 
@@ -92,9 +93,9 @@ Node* add_student(Node* list)//在最后一个添加一个成员,list为头结�
 	(list->next) = (Node*)malloc(sizeof(Node));
 	Node* new_member = list->next;
 	printf("请输入新成员的id\n");
-	scanf("%s", new_member->data.id);
+	scanf_s("%s", new_member->data.id);
 	printf("请输入新成员的姓名\n");
-	scanf("%s", new_member->data.name);
+	scanf_s("%s", new_member->data.name);
 }
 
 
@@ -102,7 +103,7 @@ Node* add_student(Node* list)//在最后一个添加一个成员,list为头结�
 Student write(void)
 {
 	Student data;
-	int n1, n2, n3;
+	int n1, n2, n3,times;
 	printf("修改单项信息输入0\n填入全部信息输入1\n");
 	scanf_s("%d", &n1);
 	switch (n1)
@@ -122,13 +123,13 @@ Student write(void)
 			fgets(data.id, MAX, stdin);
 			break;
 		case 2:
-			scanf_s("%d", &data.score->programming);
+			scanf_s("%d", &data.score[n3-1],programming);
 			break;
 		case 3:
-			scanf_s("%d", &data.score->math);
+			scanf_s("%d", &data.score[n3-1],math);
 			break;
 		case 4:
-			scanf_s("%d", &data.score->english);
+			scanf_s("%d", &data.score[n3-1],english);
 			break;
 		default:
 			printf("Error");
@@ -137,11 +138,14 @@ Student write(void)
 		break;
 	case 1:
 		printf("请输入姓名：");
-		scanf_s("%s", &data.name);
+		scanf_s("%s", data.name);
 		printf("\n请输入学号：");
-		scanf_s("%s", &data.id);
+		scanf_s("%s", data.id);
+		printf("",times);
+		scanf_s("%d",&times);
 		printf("\n请输入分数(C语言-数学-英语)：");
-		scanf_s("%d-%d-%d", &data.score->programming, &data.score->math, &data.score->english);
+		scanf_s("%d-%d-%d", &data.score[times-1].programming,\
+		&data.score[times-1].math, &data.score[times-1].english);
 		break;
 	default:
 		break;
@@ -168,9 +172,9 @@ void  delet(Node** list, char *id)				//void函数可以减少赋值一步，避
 }
 
 //更新信息
-Node* update(Node* list, char id)
+void update(Node* list, char id)
 {
-
+	(search(list,id)->data)=write();
 }
 
 //菜单栏
@@ -210,8 +214,8 @@ modeset(40, 30);
 void print_one(Node* list)
 {
 	int* n = NULL;
-	printf("姓名：%s", &list->data.name);
-	printf("学号：%s", list->data.id);
+	printf("姓名：%s", *(list->data.name));
+	printf("学号：%s", *(list->data.id));
 	printf("查看第几次考试(查看全部成绩则忽略)：");
 	scanf_s("%d", n);
 	printf("成绩：\nC语言\t数学\t英语\t\n");
@@ -234,7 +238,8 @@ begain:printf("请输入h返回主页面\n输入q退出");
 	{
 	case 104:welcome();
 		break;
-	case 113: EXIT_SUCCESS;
+	case 113: save();
+		EXIT_SUCCESS;
 	default:
 		printf("Error");
 		goto begain;
