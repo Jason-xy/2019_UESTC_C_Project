@@ -32,7 +32,7 @@ typedef struct node {
 ***函数声明****
 **************/
 void init_node(void)；
-void laod(void);
+void load(void);
 Node* search(Node* list, char* id)；
 Node* add_student(Node* list, char id)；
 Student write(void)；
@@ -49,9 +49,24 @@ void modeset(int w, int h)；
 **************/
 
 
-void laod(void)
+void load(void)
 {
-	
+	int i=0;
+	Node* list;
+	FIEL* std.txt;
+	txt=FIEL;
+	fopen(txt,"r+");
+	for(list=head,i=0;\
+	fscanf_s(txt,"%s",list->data.name,MAX)!=EOF;i++,\
+	(list->next)=(Node*)malloc(sizeof(Node)),list=list->next)
+	{
+	fscanf_s(txt,"%s",list->data.name,MAX);
+	fscanf_s(txt,"%s",list->data.id,MAX);
+	fscanf_s(txt,"%d",&(list->data.score[i].math));
+	fscanf_s(txt,"%d",&(list->data.score[i].english));
+	fscanf_s(txt,"%d",&(list->data.score[i].programming));
+	}
+	fclose(txt);
 }
 
 //初始化函数
