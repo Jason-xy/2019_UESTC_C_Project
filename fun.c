@@ -349,4 +349,44 @@ void put_in_order(Node *phead)
 			}break;
 		default:printf("undefined code");
 	}
-
+void average(Node *list){
+		double avr=0;
+		int choice,sum=0,cnt=0;
+		printf("0，1,2,3依次为查询数学，英语，c语言，总分的平均成绩的指令\n")
+		switch (choice){
+		case 0: 
+		for(;list;list=list->next){
+			sum+=list->data.score.math;
+			cnt++;
+		}avr=sum/cnt;
+		break;
+			case 1: 
+		for(;list;list=list->next){
+			sum+=list->data.score.english;
+			cnt++;
+		}avr=sum/cnt;
+		break;
+			case 2: 
+		for(;list;list=list->next){
+			sum+=list->data.score.programming;
+			cnt++;
+		}avr=sum/cnt;
+		break;
+			case 3: 
+		for(;list;list=list->next){
+			sum=list->data.score.math+list->data.score.english+list->data.score.programming;
+			cnt++;
+		}avr=sum/cnt;
+		break;
+		default :printf("undefined code");
+	} printf("平均分数为%d\n",avr);
+}
+		void analyse(Node *list){
+		printf("排序输入0\n计算平均分输入1\n");
+		int choice,num;
+		switch (choice){
+			case 0:put_in_order(list);break;
+			case 1:average(list);break;
+			default :printf("undefined code");
+		} 
+	}
