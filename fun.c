@@ -282,21 +282,23 @@ void modeset(int w, int h)
 }
 void put_in_order(Node *phead) 
 {          //排序，不输出
-	int code_order,code_data;
+	int code_order,code_data,code_num;
 	Node *p = phead;
 	Node *flag = phead;
 	Student temp;
 	printf("由高到低排序输入0，由低到高排序输入1\n");
 	scanf("%d",&code_order);
 	printf("按数学成绩排序输入0，按英语成绩排序输入1，按c语言成绩排序输入2，按总成绩排名输入3");
-	printf("%d", &code_data);
+	scanf("%d", &code_data);
+	printf("您想按第几次成绩排序？");
+	scanf("%d", &code_num);
 	switch (code_order) {
 	case 0:
 		switch (code_data) {
 		case 0:
 			for (; flag; flag = flag->next) {
 				for (p = flag; p; p = p->next) {
-					if (p->data.score->math < p->next->data.score->math) {
+					if (p->data.score[code_num].math < p->next->data.score[code_num].math) {
 						temp = p->next->data;
 						p->next->data = p->data;
 						p->data = temp;
@@ -306,7 +308,7 @@ void put_in_order(Node *phead)
 		case 1:
 			for (; flag; flag = flag->next) {
 				for (p = flag; p; p = p->next) {
-					if (p->data.score->english < p->next->data.score->english) {
+					if (p->data.score[code_num].english < p->next->data.score[code_num].english) {
 						temp = p->next->data;
 						p->next->data = p->data;
 						p->data = temp;
@@ -316,7 +318,7 @@ void put_in_order(Node *phead)
 		case 2:
 			for (; flag; flag = flag->next) {
 				for (p = flag; p; p = p->next) {
-					if (p->data.score->programming < p->next->data.score->programming) {
+					if (p->data.score[code_num].programming < p->next->data.score[code_num].programming) {
 						temp = p->next->data;
 						p->next->data = p->data;
 						p->data = temp;
@@ -330,7 +332,7 @@ void put_in_order(Node *phead)
 		case 0:
 			for (; flag; flag = flag->next) {
 				for (p = flag; p; p = p->next) {
-					if (p->data.score->math > p->next->data.score->math) {
+					if (p->data.score[code_num].math > p->next->data.score[code_num].math) {
 						temp = p->next->data;
 						p->next->data = p->data;
 						p->data = temp;
@@ -340,7 +342,7 @@ void put_in_order(Node *phead)
 		case 1:
 			for (; flag; flag = flag->next) {
 				for (p = flag; p; p = p->next) {
-					if (p->data.score->english > p->next->data.score->english) {
+					if (p->data.score[code_num].english > p->next->data.score[code_num].english) {
 						temp = p->next->data;
 						p->next->data = p->data;
 						p->data = temp;
@@ -350,7 +352,7 @@ void put_in_order(Node *phead)
 		case 2:
 			for (; flag; flag = flag->next) {
 				for (p = flag; p; p = p->next) {
-					if (p->data.score->programming > p->next->data.score->programming) {
+					if (p->data.score[code_num].programming > p->next->data.score[code_num].programming) {
 						temp = p->next->data;
 						p->next->data = p->data;
 						p->data = temp;
@@ -361,7 +363,7 @@ void put_in_order(Node *phead)
 		}break;
 	default: printf("undefined code");
 
-	}
+	}	}
 	}
 void average(Node *list){
 		double avr=0;
