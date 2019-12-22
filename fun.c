@@ -280,90 +280,107 @@ void modeset(int w, int h)
 	SetConsoleWindowInfo(hOut, 1, &rc);
 	return;
 }
-void put_in_order(Node *phead) 
+void put_in_order(Node* phead)
 {          //排序，不输出
-	int code_order,code_data,code_num;
-	Node *p = phead;
-	Node *flag = phead;
+	int code_order, code_data, code_num;
+	Node* p = phead;
+	Node* tail = NULL;
 	Student temp;
 	printf("由高到低排序输入0，由低到高排序输入1\n");
-	scanf("%d",&code_order);
-	printf("按数学成绩排序输入0，按英语成绩排序输入1，按c语言成绩排序输入2，按总成绩排名输入3");
+	scanf("%d", &code_order);
+	printf("按数学成绩排序输入0，按英语成绩排序输入1，按c语言成绩排序输入2");
 	scanf("%d", &code_data);
 	printf("您想按第几次成绩排序？");
 	scanf("%d", &code_num);
+	code_num--;
 	switch (code_order) {
 	case 0:
 		switch (code_data) {
 		case 0:
-			for (; flag; flag = flag->next) {
-				for (p = flag; p; p = p->next) {
+			while (p != tail) {
+				while (p->next != tail) {
 					if (p->data.score[code_num].math < p->next->data.score[code_num].math) {
-						temp = p->next->data;
-						p->next->data = p->data;
-						p->data = temp;
+						temp = p->data;
+						p->data = p->next->data;
+						p->next->data = temp;
 					}
+					p = p->next;
 				}
+				tail = p;
+				p = phead;
 			}break;
 		case 1:
-			for (; flag; flag = flag->next) {
-				for (p = flag; p; p = p->next) {
+			while (p != tail) {
+				while (p->next != tail) {
 					if (p->data.score[code_num].english < p->next->data.score[code_num].english) {
-						temp = p->next->data;
-						p->next->data = p->data;
-						p->data = temp;
+						temp = p->data;
+						p->data = p->next->data;
+						p->next->data = temp;
 					}
+					p = p->next;
 				}
+				tail = p;
+				p = phead;
 			}break;
 		case 2:
-			for (; flag; flag = flag->next) {
-				for (p = flag; p; p = p->next) {
+			while (p != tail) {
+				while (p->next != tail) {
 					if (p->data.score[code_num].programming < p->next->data.score[code_num].programming) {
-						temp = p->next->data;
-						p->next->data = p->data;
-						p->data = temp;
+						temp = p->data;
+						p->data = p->next->data;
+						p->next->data = temp;
 					}
+					p = p->next;
 				}
+				tail = p;
+				p = phead;
 			}break;
 		default:printf("undefined code");
 		}break;
 	case 1:
 		switch (code_data) {
 		case 0:
-			for (; flag; flag = flag->next) {
-				for (p = flag; p; p = p->next) {
+			while (p != tail) {
+				while (p->next != tail) {
 					if (p->data.score[code_num].math > p->next->data.score[code_num].math) {
-						temp = p->next->data;
-						p->next->data = p->data;
-						p->data = temp;
+						temp = p->data;
+						p->data = p->next->data;
+						p->next->data = temp;
 					}
+					p = p->next;
 				}
+				tail = p;
+				p = phead;
 			}break;
 		case 1:
-			for (; flag; flag = flag->next) {
-				for (p = flag; p; p = p->next) {
+			while (p != tail) {
+				while (p->next != tail) {
 					if (p->data.score[code_num].english > p->next->data.score[code_num].english) {
-						temp = p->next->data;
-						p->next->data = p->data;
-						p->data = temp;
+						temp = p->data;
+						p->data = p->next->data;
+						p->next->data = temp;
 					}
+					p = p->next;
 				}
+				tail = p;
+				p = phead;
 			}break;
 		case 2:
-			for (; flag; flag = flag->next) {
-				for (p = flag; p; p = p->next) {
-					if (p->data.score[code_num].programming > p->next->data.score[code_num].programming) {
-						temp = p->next->data;
-						p->next->data = p->data;
-						p->data = temp;
+			while (p != tail) {
+				while (p->next != tail) {
+					if (p->data.score[code_num].programming> p->next->data.score[code_num].programming) {
+						temp = p->data;
+						p->data = p->next->data;
+						p->next->data = temp;
 					}
+					p = p->next;
 				}
+				tail = p;
+				p = phead;
 			}break;
 		default:printf("undefined code");
 		}break;
-	default: printf("undefined code");
-
-	}	}
+	default:printf("undefined code");
 	}
 void average(Node *list){
 		double avr=0;
