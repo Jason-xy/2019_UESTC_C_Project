@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<windows.h>
+#inlcude<math.h>
 #include"fun.h"
 
 #define MAX 30
@@ -382,44 +383,116 @@ void put_in_order(Node* phead)
 		}break;
 	default:printf("undefined code");
 	}
-void average(Node *list){
-		double avr=0;
-		int choice,sum=0,cnt=0;
-		printf("0，1,2,3依次为查询数学，英语，c语言，总分的平均成绩的指令\n")
-		switch (choice){
-		case 0: 
-		for(;list;list=list->next){
-			sum+=list->data.score.math;
-			cnt++;
-		}avr=sum/cnt;
-		break;
-			case 1: 
-		for(;list;list=list->next){
-			sum+=list->data.score.english;
-			cnt++;
-		}avr=sum/cnt;
-		break;
-			case 2: 
-		for(;list;list=list->next){
-			sum+=list->data.score.programming;
-			cnt++;
-		}avr=sum/cnt;
-		break;
-			case 3: 
-		for(;list;list=list->next){
-			sum=list->data.score.math+list->data.score.english+list->data.score.programming;
-			cnt++;
-		}avr=sum/cnt;
-		break;
-		default :printf("undefined code");
-	} printf("平均分数为%d\n",avr);
+double average(Node* list,int choice,int code_num,int mode) {   //mode==0是仅仅用于计算avr,mode==1用于完整版本输出average
+		double avr = 0;
+		int sum = 0, cnt = 0;
+		}
+		do {
+			if (mode) {
+				printf("0,1,2,3依次为查询数学，英语，c语言，总分的平均成绩的指令\n");
+				scanf("%d", &choice);
+				printf("您想算第几次成绩？\n");
+				scanf("%d", &code_num);
+			}
+			switch (choice) {
+			case 0:
+				for (; list; list = list->next) {
+					sum += list->data.score[code_num].math;
+					cnt++;
+				}avr = sum / cnt;
+				break;
+			case 1:
+				for (; list; list = list->next) {
+					sum += list->data.score[code_num].english;
+					cnt++;
+				}avr = sum / cnt;
+				break;
+			case 2:
+				for (; list; list = list->next) {
+					sum += list->data.score[code.num].programming;
+					cnt++;
+				}avr = sum / cnt;
+				break;
+			case 3:
+				for (; list; list = list->next) {
+					sum = list->data.score[code_num].math + list->data.score[code_num].english + list->data.score[code_num].programming;
+					cnt++;
+				}avr = sum / cnt;
+				break;
+			default:
+				printf("undefined code,please try again");
+				system("pause");
+			}
+		} while (choice != 0 && choice != 1 && choice != 2 && choice != 3);
+			return avr;
+	}
+double variance(Node* phead) {
+	double temp = 0;
+	int cnt = 0;
+	Node* p = phead;
+	double sum_variance = 0;
+	printf("您想算第几次成绩的方差？\n");
+	scanf("%d", &code_num);
+	double avr = average(phead, choice, code_num,0);
+	do {
+		printf("0,1,2,3依次为计算数学，英语，c语言，总分的方差的指令\n");
+		scanf("%d", &choice);
+		switch (choice) {
+		case 0:
+			for (; p; p = p->next) {
+				temp = pow(p->data.score[code_num].math - avr, 2);
+				sum_variance += temp;
+				cnt++;
+			}
+			return sum_variance / cnt;
+			break;
+		case 1:
+			for (; p; p = p->next) {
+				temp = pow(p->data.score[code_num].english - avr, 2);
+				sum_variance += temp;
+				cnt++;
+			}
+			return sum_variance / cnt;
+			break;
+		case 2:
+			for (; p; p = p->next) {
+				temp = pow(p->data.score[code_num].programming - avr, 2);
+				sum_variance += temp;
+				cnt++;
+			}
+			return sum_variance / cnt;
+			break;
+		case 3:
+			for (; p; p = p->next) {
+				temp = pow(p->data.score[code_num].programming + p->data.score[code_num].math + p->data.score[code_num].english - avr, 2);
+				sum_variance += temp;
+				cnt++;
+			}
+			return sum_variance / cnt;
+			break;
+		}
+	}while(choice!=0&& choice != 1&& choice != 2&& choice != 3)
 }
-		void analyse(Node *list){
-		printf("排序输入0\n计算平均分输入1\n");
-		int choice,num;
-		switch (choice){
-			case 0:put_in_order(list);break;
-			case 1:average(list);break;
-			default :printf("undefined code");
-		} 
+
+	void analyse(Node* list) {
+		printf("0,1,2依次为排序，计算平均数，计算方差的指令\n");
+		int choice;
+		do {
+			scanf("%d", &choice);
+			switch (choice) {
+			case 0:
+				put_in_order(list);
+				break;
+			case 1:
+				double avr = average(list, 0, 3,1);//默认输出总分平均分
+				printf("%lf", avr);
+				break; 
+			case 2:
+				double var = variance(list);
+				printf("%lf", var);
+				break;
+			default:printf("undefined code,please try again");
+				system("pause");
+			}
+		} while (choice != 0 && choice != 1 &&choice != 2);
 	}
