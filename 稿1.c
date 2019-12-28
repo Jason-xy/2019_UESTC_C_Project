@@ -26,6 +26,7 @@ typedef struct {
 typedef struct node {
 	Student data;
 	struct node* next;
+	struct node* prior;
 }Node;
 
 Node* head;//头节点
@@ -437,11 +438,12 @@ void load(void)
 {
 	int i = 0;
 	Node* list;
+	Node* flag;
 	FILE* txt;
 	txt = fopen("std.txt", "r+");
 	for (list = head; \
 		fscanf(txt, "%s", list->data.name) != EOF; 
-		list = list->next)//判断是否读到结尾的同时读入name
+		list = list->next,list->prior=flag)//判断是否读到结尾的同时读入name
 	{
 		list->data.score->english = list->data.score->math = list->data.score->programming = 0;
 		fscanf(txt, "%s", list->data.id);
@@ -454,6 +456,7 @@ void load(void)
 	}
 	fclose(txt);
 	list->next = NULL;
+	flag=list;
 }
 
 //初始化链表
@@ -461,6 +464,7 @@ void init_node(void)
 {
 	head = (Node*)malloc(sizeof(Node));
 	head->next = NULL;
+	head->prior=NULL;
 	load();
 }
 
