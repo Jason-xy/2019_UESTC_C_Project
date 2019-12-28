@@ -64,8 +64,8 @@ double average_all(Node* list, int choice, int code_num);//班级均分统计
 double average_one(Node* list, int choice);//个人均分统计
 double variance_all(Node* phead);//班级波动指数
 int analyze(void);//数据分析界面
-void f_analyze(int change);//数据分析实现
-
+void f_analyze(int change);//数据分析实
+void GPA(Node* phead);
 
 int main(void)
 {
@@ -1621,4 +1621,30 @@ void f_analyze(int change)
 		if (change == 7 || change == 1 || change == 2 || change == 3 || change == 4 || change == 5 || change == 6)
 			break;
 	}
+}
+void GPA(Node* phead) {
+	Node* p;
+	int choice;
+	float avr;
+	char id[30];
+	printf("\t\t\t\t\t\t您想查询第几次成绩");
+	scanf("%d", &choice);
+		while (1) {
+			printf(""\n\n\n\t\t\t\t\t\t请输入学号："");
+			scanf("%s", id);
+			for (p = phead; strcmp(p->data.id, id) && p; p = p->next);
+			if (p)
+				break;
+			else {
+				printf("\t\t\t\t\t\t学号不存在！")；
+					Sleep(1000);
+			}
+		}
+		avr = (p->data.score[choice].math + p->data.score[choice].english + p->data.score[choice].programming) / 3;
+		if (avr >= 85)
+			printf("\t\t\t\t\t\t你太棒了，绩点4.0");
+		else if (avr >= 60)
+			printf("\t\t\t\t\t\t你的绩点为：%.1f", 4 - (85 - avr) * 0.1);
+		else printf("\t\t\t\t\t\t你挂科了");
+		
 }
